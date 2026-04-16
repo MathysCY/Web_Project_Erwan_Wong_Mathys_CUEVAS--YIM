@@ -22,16 +22,13 @@
       align-items: center;
       position: relative;
       overflow: hidden;
-      background: #ffffff;
+      background: transparent;
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-image: url('assets/images/Campus.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 1;
+      background: transparent;
       z-index: 0;
     }
 
@@ -39,8 +36,8 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(90deg,
-          rgba(255, 255, 255, 0.8) 0%,
-          rgba(255, 255, 255, 0.4) 50%,
+          rgba(5, 8, 16, 0.8) 0%,
+          rgba(5, 8, 16, 0.4) 50%,
           transparent 100%);
       z-index: 1;
     }
@@ -147,9 +144,7 @@
 
     /* Stats section */
     .stats-section {
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--glass-border);
-      border-bottom: 1px solid var(--glass-border);
+      background: transparent;
       padding: var(--space-xl) 0;
     }
 
@@ -185,7 +180,7 @@
     /* Carousel section */
     .carousel-section {
       padding: var(--space-3xl) 0;
-      background: var(--bg-primary);
+      background: transparent;
     }
 
     .carousel-slide-content {
@@ -224,7 +219,7 @@
     /* Quick Links */
     .quick-links-section {
       padding: var(--space-3xl) 0;
-      background: var(--bg-secondary);
+      background: transparent;
     }
 
     .quick-links-grid {
@@ -304,7 +299,7 @@
     /* News / highlights */
     .news-section {
       padding: var(--space-3xl) 0;
-      background: var(--bg-primary);
+      background: transparent;
     }
 
     .news-card {
@@ -515,27 +510,14 @@
             <a href="pages/contact.html" class="btn btn-outline">Apply Now →</a>
           </div>
 
-          <div class="hero-badge-row hero-animate-5">
-            <div class="hero-badge">
-              <span class="hero-badge-icon" aria-hidden="true">🏆</span>
-              <span>Top-ranked Engineering School</span>
-            </div>
-            <div class="hero-badge">
-              <span class="hero-badge-icon" aria-hidden="true">🌍</span>
-              <span>International Network</span>
-            </div>
-            <div class="hero-badge">
-              <span class="hero-badge-icon" aria-hidden="true">🔬</span>
-              <span>Active Research Labs</span>
-            </div>
-          </div>
+
 
         </div>
       </div>
     </section>
 
     <!-- ===== STATS ===== -->
-    <section class="stats-section" aria-label="Department statistics">
+    <section class="stats-section section-blend-top" aria-label="Department statistics">
       <div class="container">
         <div class="hero-stats">
 
