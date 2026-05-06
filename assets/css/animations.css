@@ -107,8 +107,8 @@
 }
 
 @keyframes blink {
-  0%, 100% { border-color: var(--color-primary); }
-  50%       { border-color: transparent; }
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
 @keyframes ripple {
@@ -151,6 +151,66 @@
 @keyframes dotBounce {
   0%, 80%, 100% { transform: scale(0); }
   40%            { transform: scale(1); }
+}
+
+@keyframes bgDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(6vw, -4vh, 0) scale(1.08);
+  }
+}
+
+@keyframes bgPan {
+  0% {
+    background-position: 0 0, 0 0, 50% 50%;
+  }
+  100% {
+    background-position: 220px 220px, -220px 220px, 50% 50%;
+  }
+}
+
+@keyframes bgSweep {
+  0% {
+    transform: translate3d(-12vw, 0, 0) rotate(-8deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(0, 0, 0) rotate(-5deg);
+    opacity: 0.78;
+  }
+  100% {
+    transform: translate3d(12vw, 0, 0) rotate(-2deg);
+    opacity: 0.22;
+  }
+}
+
+@keyframes bgFloatOne {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(8vw, 5vh, 0) scale(1.14);
+  }
+}
+
+@keyframes bgFloatTwo {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-8vw, -4vh, 0) scale(1.12);
+  }
+}
+
+@keyframes bgFloatThree {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-6vw, -8vh, 0) scale(1.16);
+  }
 }
 
 /* ---- Hero Orbs ---- */
@@ -466,7 +526,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animate: fadeIn 0.3s ease;
+  animation: fadeIn 0.3s ease;
   cursor: pointer;
 }
 
@@ -560,4 +620,16 @@
 .timeline-desc {
   font-size: 0.875rem;
   color: var(--text-secondary);
+}
+
+/* ===================================================
+   SHARED SITE BACKGROUND
+   =================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .site-bg-glow,
+  .site-bg-grid,
+  .site-bg-beam,
+  .site-bg-orb {
+    animation: none !important;
+  }
 }

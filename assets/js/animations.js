@@ -6,12 +6,49 @@
 (function () {
   'use strict';
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function createDiv(className) {
+    const el = document.createElement('div');
+    el.className = className;
+    return el;
+  }
+
+  /* ===================================================
+     SHARED SITE BACKGROUND
+     =================================================== */
+  function initSiteBackground() {
+    if (document.querySelector('.site-bg')) return;
+
+    const bg = createDiv('site-bg');
+    bg.setAttribute('aria-hidden', 'true');
+
+    bg.appendChild(createDiv('site-bg-glow'));
+    bg.appendChild(createDiv('site-bg-grid'));
+    bg.appendChild(createDiv('site-bg-beam'));
+    bg.appendChild(createDiv('site-bg-vignette'));
+    bg.appendChild(createDiv('site-bg-orb site-bg-orb-1'));
+    bg.appendChild(createDiv('site-bg-orb site-bg-orb-2'));
+    bg.appendChild(createDiv('site-bg-orb site-bg-orb-3'));
+
+    document.body.prepend(bg);
+
+    if (prefersReducedMotion) {
+      bg.classList.add('reduced-motion');
+    }
+  }
+
   /* ===================================================
      SCROLL REVEAL (Intersection Observer)
      =================================================== */
   function initScrollReveal() {
     const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
     if (!elements.length) return;
+
+    if (prefersReducedMotion) {
+      elements.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
 
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -57,6 +94,16 @@
     const counters = document.querySelectorAll('[data-target]');
     if (!counters.length) return;
 
+    if (prefersReducedMotion) {
+      counters.forEach(function (el) {
+        const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+        const suffix = el.getAttribute('data-suffix') || '';
+        const prefix = el.getAttribute('data-prefix') || '';
+        el.textContent = prefix + target.toLocaleString() + suffix;
+      });
+      return;
+    }
+
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -73,6 +120,8 @@
      CARD TILT EFFECT
      =================================================== */
   function initTilt() {
+    if (prefersReducedMotion) return;
+
     document.querySelectorAll('.tilt-card').forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
         const rect = card.getBoundingClientRect();
@@ -191,7 +240,7 @@
     ];
 
     let phraseIndex = 0;
-    let charIndex = 0;
+    let charIndex = phrases[0].length;
     let isDeleting = false;
     let typingTimer;
 
@@ -228,6 +277,13 @@
   function initProgressBars() {
     const bars = document.querySelectorAll('.progress-fill[data-width]');
     if (!bars.length) return;
+
+    if (prefersReducedMotion) {
+      bars.forEach(function (bar) {
+        bar.style.width = bar.getAttribute('data-width');
+      });
+      return;
+    }
 
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -276,124 +332,10 @@
   }
 
   /* ===================================================
-     TECH NETWORK BACKGROUND (CANVAS)
-     =================================================== */
-  function initCanvasBackground() {
-    const canvas = document.createElement('canvas');
-    canvas.id = 'bg-canvas';
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100vw';
-    canvas.style.height = '100vh';
-    canvas.style.zIndex = '-100';
-    canvas.style.opacity = '0.5';
-    document.body.prepend(canvas);
-
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    
-    // Mouse tracking
-    let mouseX = -1000;
-    let mouseY = -1000;
-    
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-    
-    window.addEventListener('mouseout', () => {
-      mouseX = -1000;
-      mouseY = -1000;
-    });
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.8;
-        this.vy = (Math.random() - 0.5) * 0.8;
-        this.radius = Math.random() * 2 + 1.5;
-        this.density = (Math.random() * 20) + 1;
-      }
-      update() {
-        // Natural drift
-        this.x += this.vx;
-        this.y += this.vy;
-        
-        // Bounce edges
-        if (this.x < 0 || this.x > width) this.vx = -this.vx;
-        if (this.y < 0 || this.y > height) this.vy = -this.vy;
-
-        // Mouse interaction (repel)
-        let dx = mouseX - this.x;
-        let dy = mouseY - this.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-        let maxDistance = 150;
-        
-        if (distance < maxDistance) {
-            let forceDirectionX = dx / distance;
-            let forceDirectionY = dy / distance;
-            let force = (maxDistance - distance) / maxDistance;
-            let directionX = forceDirectionX * force * this.density;
-            let directionY = forceDirectionY * force * this.density;
-            
-            this.x -= directionX;
-            this.y -= directionY;
-        }
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#2563eb';
-        ctx.fill();
-      }
-    }
-
-    // Create particles
-    for (let i = 0; i < 90; i++) {
-      particles.push(new Particle());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-        
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          
-          if (dist < 160) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(14, 165, 233, ${1 - dist/160})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-  }
-
-  /* ===================================================
      INIT ALL
      =================================================== */
   document.addEventListener('DOMContentLoaded', function () {
+    initSiteBackground();
     initScrollReveal();
     initCounters();
     initTilt();
@@ -401,7 +343,6 @@
     initTypingAnimation();
     initProgressBars();
     initSectionHighlight();
-    initCanvasBackground();
   });
 
 })();

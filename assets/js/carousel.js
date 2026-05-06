@@ -6,6 +6,8 @@
 (function () {
   'use strict';
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /**
    * Initializes a single carousel instance.
    * @param {HTMLElement} wrapper - The .carousel-wrapper element
@@ -56,6 +58,7 @@
     function prev() { goTo(current - 1); }
 
     function startAutoPlay() {
+      if (prefersReducedMotion) return;
       autoPlayTimer = setInterval(next, AUTOPLAY_DELAY);
     }
 
@@ -80,7 +83,9 @@
 
     /* Pause on hover */
     wrapper.addEventListener('mouseenter', function () { clearInterval(autoPlayTimer); });
-    wrapper.addEventListener('mouseleave', startAutoPlay);
+    wrapper.addEventListener('mouseleave', function () {
+      if (!prefersReducedMotion) startAutoPlay();
+    });
 
     /* Touch / swipe support */
     let touchStartX = 0;
@@ -101,7 +106,7 @@
 
     /* Init */
     goTo(0);
-    startAutoPlay();
+    if (!prefersReducedMotion) startAutoPlay();
   }
 
   /* Initialize all carousels on page */

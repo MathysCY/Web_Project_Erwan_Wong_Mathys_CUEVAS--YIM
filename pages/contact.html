@@ -145,11 +145,36 @@
       margin-top: 0.5rem;
     }
 
+    .consent-group {
+      gap: 0.5rem;
+    }
+
+    .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .consent-row label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    #gdpr-consent.error {
+      outline: 2px solid rgba(248, 113, 113, 0.6);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
     /* FAQ */
     .faq-section {
       background: var(--bg-primary);
     }
   </style>
+  <link rel="stylesheet" href="../assets/css/rebrand.css">
+  <link rel="stylesheet" href="../assets/css/rebrand-blue.css">
 </head>
 <body>
 
@@ -291,11 +316,14 @@
             <span class="form-hint" id="message-hint">Minimum 20 characters.</span>
           </div>
 
-          <div class="form-group" style="flex-direction:row;align-items:center;gap:0.75rem;">
-            <input type="checkbox" id="gdpr-consent" name="gdpr" style="width:18px;height:18px;accent-color:var(--color-primary);flex-shrink:0;" required>
-            <label for="gdpr-consent" style="font-size:0.8rem;color:var(--text-secondary);cursor:pointer;">
-              I consent to EFREI storing my contact information to respond to this enquiry. See our <a href="#" style="color:var(--color-primary-light);">Privacy Policy</a>.
-            </label>
+          <div class="form-group consent-group">
+            <div class="consent-row">
+              <input type="checkbox" id="gdpr-consent" name="gdpr" style="width:18px;height:18px;accent-color:var(--color-primary);flex-shrink:0;" required aria-describedby="gdpr-error">
+              <label for="gdpr-consent">
+                I consent to EFREI storing my contact information to respond to this enquiry. See our <a href="about.html" style="color:var(--color-primary-light);">Project details</a>.
+              </label>
+            </div>
+            <span class="form-error" id="gdpr-error" role="alert"></span>
           </div>
 
           <button type="submit" id="contact-submit" class="btn btn-primary" style="width:100%;justify-content:center;">
@@ -530,10 +558,9 @@
     <div class="footer-bottom">
       <p>&copy; 2026 EFREI Paris — Computer Science Department. All rights reserved.</p>
       <div class="footer-social" aria-label="Social media links">
-        <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
-        <a href="#" class="social-icon" aria-label="Twitter/X">𝕏</a>
-        <a href="#" class="social-icon" aria-label="GitHub">⌥</a>
+        <a href="contact.html" class="social-icon" aria-label="Contact">✉</a>
         <a href="about.html" class="social-icon" aria-label="About the project">ℹ</a>
+        <a href="courses.html" class="social-icon" aria-label="Programs">▣</a>
       </div>
     </div>
   </div>

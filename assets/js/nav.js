@@ -66,6 +66,15 @@
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobile-nav');
 
+  function closeMobileNav() {
+    if (!hamburger || !mobileNav) return;
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open navigation menu');
+  }
+
   if (hamburger && mobileNav) {
     hamburger.addEventListener('click', function () {
       const isOpen = hamburger.classList.toggle('open');
@@ -75,29 +84,21 @@
         hamburger.setAttribute('aria-expanded', 'true');
         hamburger.setAttribute('aria-label', 'Close navigation menu');
       } else {
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.setAttribute('aria-label', 'Open navigation menu');
+        closeMobileNav();
       }
     });
 
     // Close menu on link click
     mobileNav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
-        hamburger.setAttribute('aria-expanded', 'false');
+        closeMobileNav();
       });
     });
 
     // Close on outside click
     document.addEventListener('click', function (e) {
       if (!header.contains(e.target) && !mobileNav.contains(e.target)) {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-        document.body.style.overflow = '';
+        closeMobileNav();
       }
     });
   }
@@ -130,9 +131,7 @@
   /* ---- Keyboard trap in mobile nav ---- */
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && mobileNav && mobileNav.classList.contains('open')) {
-      hamburger.classList.remove('open');
-      mobileNav.classList.remove('open');
-      document.body.style.overflow = '';
+      closeMobileNav();
       hamburger.focus();
     }
   });

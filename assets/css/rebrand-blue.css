@@ -1,0 +1,225 @@
+/* Blue-theme override for the editorial rebrand */
+
+:root {
+  --bg-primary: #06111f;
+  --bg-secondary: #0b172a;
+  --bg-tertiary: #070b14;
+  --surface: rgba(255, 255, 255, 0.04);
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.10);
+
+  --color-primary: #3e7fff;
+  --color-primary-light: #8bb6ff;
+  --color-primary-dark: #214fb8;
+  --color-accent: #60d6ff;
+  --color-gold: #9dc9ff;
+  --color-success: #73d18f;
+  --color-error: #ff6f61;
+  --color-warning: #9dc9ff;
+
+  --text-primary: #f4f8ff;
+  --text-secondary: #d3def2;
+  --text-muted: #93a7c6;
+
+  --shadow-glow: 0 0 0 1px rgba(62, 127, 255, 0.12), 0 24px 70px rgba(62, 127, 255, 0.08);
+  --shadow-glow-accent: 0 0 0 1px rgba(96, 214, 255, 0.12), 0 24px 70px rgba(96, 214, 255, 0.08);
+}
+
+body {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(62, 127, 255, 0.16), transparent 24%),
+    radial-gradient(circle at 85% 12%, rgba(96, 214, 255, 0.10), transparent 26%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.04), transparent 30%),
+    linear-gradient(180deg, #0c1424 0%, var(--bg-primary) 40%, #05070d 100%);
+}
+
+.site-bg-glow {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(62, 127, 255, 0.20), transparent 18%),
+    radial-gradient(circle at 84% 18%, rgba(96, 214, 255, 0.14), transparent 16%),
+    radial-gradient(circle at 68% 78%, rgba(255, 255, 255, 0.05), transparent 18%);
+}
+
+.site-bg-beam {
+  background:
+    linear-gradient(112deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(62, 127, 255, 0.05) 45%,
+      rgba(62, 127, 255, 0.12) 49%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(96, 214, 255, 0.12) 51%,
+      rgba(96, 214, 255, 0.05) 56%,
+      transparent 62%,
+      transparent 100%);
+}
+
+.site-bg-orb-1,
+.hero-orb-1,
+.float-shape-1 {
+  background: radial-gradient(circle, rgba(62, 127, 255, 0.22) 0%, transparent 68%);
+}
+
+.site-bg-orb-2,
+.hero-orb-2,
+.float-shape-2 {
+  background: radial-gradient(circle, rgba(96, 214, 255, 0.18) 0%, transparent 70%);
+}
+
+.site-bg-orb-3,
+.hero-orb-3 {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+}
+
+.btn-primary,
+.btn-accent,
+.filter-tab.active,
+#back-to-top,
+.progress-fill,
+.carousel-dot.active,
+.form-control:focus,
+.accordion-header.open,
+.calendar-today {
+  box-shadow: none;
+}
+
+.btn-primary,
+.filter-tab.active,
+#back-to-top {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  color: #08101d;
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--color-accent), #c1f1ff);
+  color: #08101d;
+}
+
+.section-label,
+.logo-sub,
+.stat-label,
+.member-role,
+.faculty-role,
+.project-meta-label,
+.news-date,
+.course-meta-item,
+.lab-meta-item,
+.legend-item,
+.timeline-year {
+  color: var(--color-primary-light);
+}
+
+.section-title span,
+.gradient-text,
+.animated-gradient-text,
+.news-read-more,
+.footer-col h5,
+.social-icon:hover,
+.main-nav a:hover,
+.main-nav a.active,
+.mobile-nav a:hover,
+.mobile-nav a.active,
+.breadcrumb a:hover,
+.accordion-header.open,
+.accordion-header.open .accordion-icon {
+  color: var(--color-accent);
+}
+
+.section-title span,
+.gradient-text {
+  -webkit-text-fill-color: transparent;
+}
+
+.card,
+.card-glass,
+.news-card,
+.quick-link-card,
+.stat-item,
+.course-card,
+.faculty-card,
+.member-card,
+.track-card,
+.club-card,
+.info-card,
+.testimonial-card,
+.lab-card,
+.tech-item,
+.context-card,
+.accordion-item,
+.calendar-cell,
+.form-control,
+.search-bar,
+.carousel-wrapper,
+#events-calendar {
+  border-color: rgba(255, 255, 255, 0.10);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.tag-primary,
+.course-icon,
+.info-icon,
+.quick-link-icon {
+  background: rgba(62, 127, 255, 0.12) !important;
+}
+
+.tag-accent,
+.social-icon:hover,
+.search-bar:focus-within,
+.calendar-today,
+.accordion-header.open {
+  background: rgba(96, 214, 255, 0.08) !important;
+}
+
+.tag-gold,
+.track-card:nth-child(3) .tag,
+.event-hackathon {
+  background: rgba(157, 201, 255, 0.10) !important;
+}
+
+.quick-link-icon[style*="245,158,11"],
+.course-icon[style*="245,158,11"],
+.info-icon[style*="245,158,11"] {
+  background: linear-gradient(135deg, rgba(62, 127, 255, 0.18), rgba(96, 214, 255, 0.08)) !important;
+}
+
+.cta-banner {
+  background:
+    linear-gradient(135deg, rgba(62, 127, 255, 0.12), rgba(96, 214, 255, 0.08)),
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.06), transparent 44%);
+}
+
+.integrity-note {
+  background: rgba(62, 127, 255, 0.08);
+  border-left-color: var(--color-primary);
+}
+
+.member-card:nth-child(1)::before,
+.lab-card:nth-child(1)::before,
+.event-seminar,
+.progress-fill,
+.carousel-btn:hover,
+.calendar-nav-btn:hover {
+  background: var(--color-primary);
+}
+
+.member-card:nth-child(2)::before,
+.lab-card:nth-child(2)::before,
+.event-event {
+  background: var(--color-accent);
+}
+
+.lab-card:nth-child(3)::before,
+.event-hackathon {
+  background: var(--color-gold);
+}
+
+.lab-card:nth-child(4)::before {
+  background: #7fb1ff;
+}
+
+.hero-title,
+.page-hero h1,
+.section-title,
+.cta-banner h2 {
+  text-wrap: balance;
+}

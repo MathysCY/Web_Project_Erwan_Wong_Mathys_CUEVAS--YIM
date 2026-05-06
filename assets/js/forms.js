@@ -282,7 +282,8 @@
       name:    { el: document.getElementById('contact-name'),    errorId: 'name-error' },
       email:   { el: document.getElementById('contact-email'),   errorId: 'email-error' },
       subject: { el: document.getElementById('contact-subject'), errorId: 'subject-error' },
-      message: { el: document.getElementById('contact-message'), errorId: 'message-error' }
+      message: { el: document.getElementById('contact-message'), errorId: 'message-error' },
+      gdpr:    { el: document.getElementById('gdpr-consent'),    errorId: 'gdpr-error' }
     };
 
     function showError(field, msg) {
@@ -306,7 +307,7 @@
     function validateField(key) {
       const field = fields[key];
       if (!field.el) return true;
-      const val = field.el.value.trim();
+      const val = field.el.type === 'checkbox' ? field.el.checked : field.el.value.trim();
 
       if (key === 'name') {
         if (!val) { showError(field, 'Full name is required.'); return false; }
@@ -319,6 +320,8 @@
       } else if (key === 'message') {
         if (!val) { showError(field, 'Message cannot be empty.'); return false; }
         if (val.length < 20) { showError(field, 'Message must be at least 20 characters.'); return false; }
+      } else if (key === 'gdpr') {
+        if (!val) { showError(field, 'Please confirm consent before sending.'); return false; }
       }
 
       showSuccess(field);
@@ -333,6 +336,11 @@
       field.el.addEventListener('input', function () {
         if (field.el.classList.contains('error')) validateField(key);
       });
+      if (field.el.type === 'checkbox') {
+        field.el.addEventListener('change', function () {
+          validateField(key);
+        });
+      }
     });
 
     // Submit
